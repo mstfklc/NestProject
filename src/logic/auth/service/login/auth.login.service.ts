@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { throwApiError } from '../../../../util/http.utility';
-import { CustomExceptionCode } from '../../../../constant.core';
 import { ApiErrorEnum } from '../../../../enum/apiError.enum';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../../../../schemas/user.schema';
@@ -10,6 +9,7 @@ import { LoginRequest } from '../../dto/request/login/login.request';
 import LoginResponse from '../../dto/response/login/login.response';
 import * as bcrypt from 'bcrypt';
 import { Role } from '../../../../enum/role.enum';
+import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
 
 @Injectable()
 export class AuthLoginService {

@@ -6,8 +6,8 @@ import { User } from '../../../../schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { throwApiError } from '../../../../util/http.utility';
 import { ApiErrorEnum } from '../../../../enum/apiError.enum';
-import { CustomExceptionCode } from '../../../../constant.core';
 import { SuccessResponseDto } from '../../../../dto/success.response.dto';
+import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
 
 @Injectable()
 export class AuthRegisterService {
