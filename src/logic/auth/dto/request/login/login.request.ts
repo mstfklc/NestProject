@@ -4,7 +4,7 @@ import * as Joi from 'joi';
 
 export class LoginRequest {
   @ApiProperty()
-  @JoiSchema(Joi.string().required())
+  @JoiSchema(Joi.string().required().email())
   email: string;
 
   @ApiProperty()
