@@ -1,21 +1,28 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { JoiSchema } from 'nestjs-joi';
 import * as Joi from 'joi';
 
 export class RegisterRequestDto {
-  @ApiProperty()
-  @JoiSchema(Joi.string().required().email())
+  @ApiProperty({
+    description: 'Email',
+    example: 'test@gmail.com',
+  })
   email: string;
-  @ApiProperty()
-  @JoiSchema(Joi.string().required())
+  @ApiProperty({
+    description: 'Full name',
+    example: 'Mustafa Kilic',
+  })
   fullName: string;
-  @ApiProperty()
-  @JoiSchema(
-    Joi.string()
-      .required()
-      .min(8)
-      .regex(/[A-Z]/)
-      .error(new Error('Password must contain at least one uppercase letter')),
-  )
+  @ApiProperty({
+    description: 'Password',
+    example: '1234567M',
+  })
   password: string;
 }
+
+export const AuthRegisterValidation = Joi.object({
+  email: Joi.string()
+    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .required(),
+  fullName: Joi.string().required(),
+  password: Joi.string().required().min(8).regex(/[A-Z]/),
+});

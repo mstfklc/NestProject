@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { RegisterRequestDto } from '../../dto/request/register/register.request.dto';
+import {
+  AuthRegisterValidation,
+  RegisterRequestDto,
+} from '../../dto/request/register/register.request.dto';
 import * as bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import { User } from '../../../../schemas/user.schema';
@@ -22,6 +25,14 @@ export class AuthRegisterService {
       throwApiError(
         CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_user_already_exist,
+      );
+    }
+    try {
+      await AuthRegisterValidation.validateAsync(req);
+    } catch (err) {
+      throwApiError(
+        CustomExceptionCode.BAD_REQUEST,
+        ApiErrorEnum.api_error_invalid_input_data,
       );
     }
     const hashedPassword = await bcrypt.hash(req.password, 10);

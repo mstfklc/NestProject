@@ -5,7 +5,10 @@ import { ApiErrorEnum } from '../../../../enum/apiError.enum';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../../../../schemas/user.schema';
 import mongoose from 'mongoose';
-import { LoginRequest } from '../../dto/request/login/login.request';
+import {
+  AuthLoginValidation,
+  LoginRequest,
+} from '../../dto/request/login/login.request';
 import LoginResponse from '../../dto/response/login/login.response';
 import * as bcrypt from 'bcrypt';
 import { Role } from '../../../../enum/role.enum';
@@ -20,6 +23,14 @@ export class AuthLoginService {
   ) {}
 
   async login(req: LoginRequest): Promise<LoginResponse> {
+    try {
+      await AuthLoginValidation.validateAsync(req);
+    } catch (err) {
+      throwApiError(
+        CustomExceptionCode.BAD_REQUEST,
+        ApiErrorEnum.api_error_invalid_input_data,
+      );
+    }
     const user = await this.userModel.findOne({
       Email: req.email,
       IsDeleted: false,
@@ -40,12 +51,12 @@ export class AuthLoginService {
         ApiErrorEnum.api_error_credential_invalid,
       );
     }
-    const token = this.jwtService.sign({
+    const accessToken = this.jwtService.sign({
       id: user._id,
       fullName: user.FullName,
       roles: user.Roles,
     });
-    return new LoginResponse(token);
+    return new LoginResponse(accessToken);
   }
 
   async adminLogin(req: LoginRequest): Promise<LoginResponse> {
@@ -70,11 +81,11 @@ export class AuthLoginService {
         ApiErrorEnum.api_error_credential_invalid,
       );
     }
-    const token = this.jwtService.sign({
+    const accessToken = this.jwtService.sign({
       id: admin._id,
       fullName: admin.FullName,
       roles: admin.Roles,
     });
-    return new LoginResponse(token);
+    return new LoginResponse(accessToken);
   }
 }
