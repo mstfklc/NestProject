@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthLoginService } from '../../service/login/auth.login.service';
-import { LoginRequest } from '../../dto/request/login/login.request';
-import LoginResponse from '../../dto/response/login/login.response';
+import { LoginRequestDto } from '../../dto/request/login/login.request.dto';
+import LoginResponseDto from '../../dto/response/login/login.response.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Auth')
@@ -10,12 +10,12 @@ export class AuthLoginController {
   constructor(private authLoginService: AuthLoginService) {}
 
   @Post()
-  login(@Body() req: LoginRequest): Promise<LoginResponse> {
+  login(@Body() req: LoginRequestDto): Promise<LoginResponseDto> {
     return this.authLoginService.login(req);
   }
 
   @Post('/admin')
-  adminLogin(@Body() req: LoginRequest): Promise<LoginResponse> {
+  adminLogin(@Body() req: LoginRequestDto): Promise<LoginResponseDto> {
     return this.authLoginService.adminLogin(req);
   }
 }
