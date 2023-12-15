@@ -5,4 +5,11 @@ export enum ApiErrorEnum {
   api_error_invalid_input_data = 4,
   api_error_category_already_exists = 5,
   api_error_unauthorized = 6,
+  api_error_author_already_exists = 7,
+  api_error_book_already_exists = 8,
+  api_error_author_not_found = 9,
+  api_error_category_not_found = 10,
+  api_error_book_not_found = 11,
+  api_error_update_book_failed = 12,
+  api_error_book_name_already_exists = 13,
 }
