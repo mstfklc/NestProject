@@ -23,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload) {
     const { id } = payload;
 
-    const user = await this.userModel.findOne({ _id: id });
+    const user = await this.userModel.findOne({ _id: id, IsDeleted: false });
 
     if (!user) {
       throwApiError(
