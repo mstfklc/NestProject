@@ -14,8 +14,8 @@ export class AuthLoginController {
     return this.authLoginService.login(req);
   }
 
-  @Post('/admin')
-  adminLogin(@Body() req: LoginRequestDto): Promise<LoginResponseDto> {
-    return this.authLoginService.adminLogin(req);
-  }
+  //@Post('/admin')
+  //adminLogin(@Body() req: LoginRequestDto): Promise<LoginResponseDto> {
+  //  return this.authLoginService.adminLogin(req);
+  //}
 }
