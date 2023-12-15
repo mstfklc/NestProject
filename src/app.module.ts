@@ -5,9 +5,17 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as process from 'process';
 import { GlobalJwtModule } from './custom/jwt/globalJwt.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 60,
+      },
+    ]),
     LogicModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
@@ -17,6 +25,12 @@ import { ScheduleModule } from '@nestjs/schedule';
     GlobalJwtModule,
     ScheduleModule.forRoot(),
   ],
-  providers: [ConfigService],
+  providers: [
+    ConfigService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}
