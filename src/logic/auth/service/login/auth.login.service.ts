@@ -7,11 +7,10 @@ import { User } from '../../../../schemas/user.schema';
 import mongoose from 'mongoose';
 import {
   AuthLoginValidation,
-  LoginRequest,
-} from '../../dto/request/login/login.request';
-import LoginResponse from '../../dto/response/login/login.response';
+  LoginRequestDto,
+} from '../../dto/request/login/login.request.dto';
+import LoginResponseDto from '../../dto/response/login/login.response.dto';
 import * as bcrypt from 'bcrypt';
-import { Role } from '../../../../enum/role.enum';
 import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
 
 @Injectable()
@@ -22,7 +21,7 @@ export class AuthLoginService {
     private jwtService: JwtService,
   ) {}
 
-  async login(req: LoginRequest): Promise<LoginResponse> {
+  async login(req: LoginRequestDto): Promise<LoginResponseDto> {
     try {
       await AuthLoginValidation.validateAsync(req);
     } catch (err) {
@@ -51,15 +50,15 @@ export class AuthLoginService {
         ApiErrorEnum.api_error_credential_invalid,
       );
     }
-    const accessToken = this.jwtService.sign({
+    const token = this.jwtService.sign({
       id: user._id,
       fullName: user.FullName,
-      roles: user.Roles,
     });
-    return new LoginResponse(accessToken);
+
+    return new LoginResponseDto(token);
   }
 
-  async adminLogin(req: LoginRequest): Promise<LoginResponse> {
+  /*async adminLogin(req: LoginRequestDto): Promise<LoginResponseDto> {
     const admin = await this.userModel.findOne({
       Email: req.email,
       IsDeleted: false,
@@ -86,6 +85,6 @@ export class AuthLoginService {
       fullName: admin.FullName,
       roles: admin.Roles,
     });
-    return new LoginResponse(accessToken);
-  }
+    return new LoginResponseDto(accessToken);
+  }*/
 }
