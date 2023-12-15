@@ -11,7 +11,7 @@ export type BookDocument = Book & Document;
   versionKey: false,
 })
 export class Book {
-  @Prop({ unique: [true, 'Duplicate book name entered'] })
+  @Prop({ unique: true, required: true })
   BookName: string;
   @Prop({ required: true })
   Price: number;

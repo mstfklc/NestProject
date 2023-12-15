@@ -24,7 +24,7 @@ export class UsersCategoryController {
   }
 
   @Get()
-  @ApiOkResponse({ type: SuccessResponseDto })
+  @ApiOkResponse({ type: ListCategoryResponseDto })
   @UseGuards(JwtAuthGuard)
   listCategories(
     @Req() auth: AuthRequestDto,
