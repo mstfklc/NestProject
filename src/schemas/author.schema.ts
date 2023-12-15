@@ -9,7 +9,7 @@ export type AuthorDocument = Author & Document;
   versionKey: false,
 })
 export class Author {
-  @Prop({ unique: [true, 'Duplicate author name entered'] })
+  @Prop({ required: true })
   AuthorName: string;
   @Prop({
     type: mongoose.Schema.Types.ObjectId,

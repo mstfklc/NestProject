@@ -9,7 +9,7 @@ export type CategoryDocument = Category & Document;
   versionKey: false,
 })
 export class Category {
-  @Prop({ unique: [true, 'Duplicate category name entered'] })
+  @Prop({ required: true })
   CategoryName: string;
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
