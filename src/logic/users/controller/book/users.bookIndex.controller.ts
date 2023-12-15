@@ -15,10 +15,13 @@ import { SuccessResponseDto } from '../../../../dto/success.response.dto';
 import { JwtAuthGuard } from '../../../../custom/jwt/guard/jwt.guard';
 import { DeleteBookRequestDto } from '../../dto/request/book/deleteBook.request.dto';
 import { UpdateBookRequestDto } from '../../dto/request/book/updateBook.request.dto';
+import { Roles } from '../../../../custom/decorator/role/role.decorator';
+import { Role } from '../../../../enum/role.enum';
 
 @ApiTags('Users')
 @ApiSecurity('access-token')
 @Controller('book')
+@Roles(Role.User)
 export class UsersBookIndexController {
   constructor(private usersBookIndexService: UsersBookIndexService) {}
 

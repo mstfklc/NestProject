@@ -6,10 +6,13 @@ import { AddCategoryRequestDto } from '../../dto/request/category/addCategory.re
 import { JwtAuthGuard } from '../../../../custom/jwt/guard/jwt.guard';
 import { AuthRequestDto } from '../../../../custom/jwt/dto/auth.request.dto';
 import { ListCategoryResponseDto } from '../../dto/response/category/listCategory.response.dto';
+import { Roles } from '../../../../custom/decorator/role/role.decorator';
+import { Role } from '../../../../enum/role.enum';
 
 @ApiTags('Users')
 @ApiSecurity('access-token')
 @Controller('category')
+@Roles(Role.User)
 export class UsersCategoryController {
   constructor(private usersCategoryService: UsersCategoryService) {}
 

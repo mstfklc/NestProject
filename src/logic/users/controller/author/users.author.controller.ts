@@ -6,10 +6,13 @@ import { JwtAuthGuard } from '../../../../custom/jwt/guard/jwt.guard';
 import { AddAuthorRequestDto } from '../../dto/request/author/addAuthor.request.dto';
 import { AuthRequestDto } from '../../../../custom/jwt/dto/auth.request.dto';
 import { ListAuthorResponseDto } from '../../dto/response/author/listAuthor.response.dto';
+import { Roles } from '../../../../custom/decorator/role/role.decorator';
+import { Role } from '../../../../enum/role.enum';
 
 @ApiTags('Users')
 @ApiSecurity('access-token')
 @Controller('author')
+@Roles(Role.User)
 export class UsersAuthorController {
   constructor(private usersAuthorService: UsersAuthorService) {}
 

@@ -16,7 +16,7 @@ import { ListCategoryResponseDto } from '../../dto/response/category/listCategor
 @Injectable()
 export class UsersCategoryService {
   constructor(
-    @InjectModel(Category.name)
+    @InjectModel('Category')
     private categoryModel: mongoose.Model<Category>,
   ) {}
 
