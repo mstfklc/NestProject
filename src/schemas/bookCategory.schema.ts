@@ -19,13 +19,13 @@ export class BookCategory {
   BookID: Book;
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: Category.name,
+    ref: 'Category',
     required: true,
   })
   CategoryID: Category;
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: User.name,
+    ref: 'User',
     required: true,
   })
   UserID: User;

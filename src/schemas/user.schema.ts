@@ -11,7 +11,7 @@ export type UserDocument = User & Document;
 export class User {
   @Prop({ required: true })
   FullName: string;
-  @Prop({ unique: [true, 'Duplicate email entered'] })
+  @Prop({ unique: true, required: true })
   Email: string;
   @Prop({ required: true })
   PasswordHashed: string;

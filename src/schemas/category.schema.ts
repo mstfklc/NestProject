@@ -13,7 +13,7 @@ export class Category {
   CategoryName: string;
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: User.name,
+    ref: 'User',
     required: true,
   })
   UserID: User;

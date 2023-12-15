@@ -17,19 +17,19 @@ export class Book {
   Price: number;
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: Author.name,
+    ref: 'Author',
     required: true,
   })
   AuthorID: Author;
   @Prop({
     type: [mongoose.Schema.Types.ObjectId],
-    ref: BookCategory.name,
+    ref: 'BookCategory',
     required: true,
   })
   BookCategoryID: BookCategory[];
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: User.name,
+    ref: 'User',
     required: true,
   })
   UserID: User;
