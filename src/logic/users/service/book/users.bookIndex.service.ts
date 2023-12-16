@@ -54,7 +54,7 @@ export class UsersBookIndexService {
       );
     }
 
-    const mapCategory = req.bookCategoryID.map((item) => item.toString());
+    const mapCategory = req.categoryID.map((item) => item.toString());
     const categoryCheck = await this.categoryModel.find({
       _id: { $in: mapCategory },
       UserID: auth.user.id,
@@ -82,7 +82,7 @@ export class UsersBookIndexService {
       Price: req.price,
       UserID: auth.user.id,
       AuthorID: req.authorID,
-      BookCategoryID: req.bookCategoryID,
+      CategoryID: req.categoryID,
     });
     return Promise.resolve({ status: true });
   }
@@ -143,40 +143,39 @@ export class UsersBookIndexService {
         ApiErrorEnum.api_error_book_name_already_exists,
       );
     }
-    if (req.bookCategoryID && req.bookCategoryID.length > 0) {
-      const mapCategory = req.bookCategoryID.map((item) => item.toString());
+    if (req.categoryID && req.categoryID.length > 0) {
+      const mapCategory = req.categoryID.map((item) => item.toString());
       const categoryCheck = await this.categoryModel.find({
         _id: { $in: mapCategory },
         UserID: auth.user.id,
         IsDeleted: false,
       });
-      if (
-        !categoryCheck ||
-        categoryCheck.length !== req.bookCategoryID.length
-      ) {
+      if (!categoryCheck || categoryCheck.length !== req.categoryID.length) {
         throwApiError(
           CustomExceptionCode.API_ERROR,
           ApiErrorEnum.api_error_category_not_found,
         );
       }
     }
-    const authorCheck = await this.authorModel.findOne({
-      _id: req.authorID,
-      UserID: auth.user.id,
-      IsDeleted: false,
-    });
-    if (!authorCheck) {
-      throwApiError(
-        CustomExceptionCode.API_ERROR,
-        ApiErrorEnum.api_error_author_not_found,
-      );
+    if (req.authorID) {
+      const authorCheck = await this.authorModel.findOne({
+        _id: req.authorID,
+        UserID: auth.user.id,
+        IsDeleted: false,
+      });
+      if (!authorCheck) {
+        throwApiError(
+          CustomExceptionCode.API_ERROR,
+          ApiErrorEnum.api_error_author_not_found,
+        );
+      }
     }
     const updateOptions = {
       _id: req.bookID,
       BookName: req.bookName ?? bookCheck.BookName,
       Price: req.price ?? bookCheck.Price,
       AuthorID: req.authorID ?? bookCheck.AuthorID,
-      BookCategoryID: req.bookCategoryID ?? bookCheck.BookCategoryID,
+      CategoryID: req.categoryID ?? bookCheck.CategoryID,
     };
     const updateResult = await this.bookModel.updateOne(updateOptions);
     if (updateResult.modifiedCount === 0) {
