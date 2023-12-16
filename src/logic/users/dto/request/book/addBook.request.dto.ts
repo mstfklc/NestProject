@@ -22,15 +22,15 @@ export class AddBookRequestDto {
   authorID: ObjectId;
 
   @ApiProperty({
-    description: 'Author ID',
+    description: 'Category ID',
     example: ['5f5d2a7e8d8e4c1a0c7f1b8d', '5f5d2a7e8d8e4c1a0c7f1b8d'],
   })
-  bookCategoryID: ObjectId[];
+  categoryID: ObjectId[];
 }
 
 export const AddBookValidation = joi.object({
   bookName: joi.string().required().min(1).max(50),
   price: joi.number().required(),
   authorID: joi.string().required(),
-  bookCategoryID: joi.required(),
+  categoryID: joi.required(),
 });
