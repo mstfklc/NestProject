@@ -19,15 +19,17 @@ export class UpdateBookRequestDto {
   })
   price?: number;
   @ApiProperty({
+    type: String,
     description: 'Author ID',
     example: '5f5d2a7e8d8e4c1a0c7f1b8d',
   })
   authorID?: ObjectId;
   @ApiProperty({
-    description: 'Author ID',
-    example: '5f5d2a7e8d8e4c1a0c7f1b8d',
+    type: [String],
+    description: 'Category ID',
+    example: '["5f5d2a7e8d8e4c1a0c7f1b8d"]',
   })
-  bookCategoryID?: ObjectId[];
+  categoryID?: ObjectId[];
 }
 
 export const UpdateBookValidation = joi.object({
@@ -35,5 +37,5 @@ export const UpdateBookValidation = joi.object({
   bookName: joi.string().min(1).max(50),
   price: joi.number(),
   authorID: joi.string(),
-  bookCategoryID: joi.array().items(joi.string()),
+  categoryID: joi.array().items(joi.string()),
 });
