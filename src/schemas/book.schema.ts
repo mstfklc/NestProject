@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { Author } from './author.schema';
-import { BookCategory } from './bookCategory.schema';
 import { User } from './user.schema';
+import { Category } from './category.schema';
 
 export type BookDocument = Book & Document;
 
@@ -23,10 +23,10 @@ export class Book {
   AuthorID: Author;
   @Prop({
     type: [mongoose.Schema.Types.ObjectId],
-    ref: 'BookCategory',
+    ref: 'Category',
     required: true,
   })
-  BookCategoryID: BookCategory[];
+  CategoryID: Category[];
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
