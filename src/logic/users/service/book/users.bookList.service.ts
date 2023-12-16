@@ -8,6 +8,7 @@ import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
 import { ApiErrorEnum } from '../../../../enum/apiError.enum';
 import { Author } from '../../../../schemas/author.schema';
 import { Category } from '../../../../schemas/category.schema';
+import { ListBookResponseDto } from '../../dto/request/book/listBook.response.dto';
 
 @Injectable()
 export class UsersBookListService {
@@ -59,5 +60,56 @@ export class UsersBookListService {
       bookCategoryName: categoryNamesMap,
     };
     return Promise.resolve(response);
+  }
+
+  async listBook(
+    authorName?: string,
+    categoryName?: string,
+  ): Promise<ListBookResponseDto[]> {
+    const query: any = {};
+    if (authorName) {
+      const author = await this.authorModel.findOne({
+        AuthorName: authorName,
+        IsDeleted: false,
+      });
+      console.log(author);
+      if (author) {
+        query.AuthorID = author._id;
+      } else {
+        throwApiError(
+          CustomExceptionCode.API_ERROR,
+          ApiErrorEnum.api_error_author_not_found,
+        );
+      }
+    }
+
+    if (categoryName) {
+      const category = await this.categoryModel.findOne({
+        CategoryName: categoryName,
+        IsDeleted: false,
+      });
+      if (category) {
+        query.CategoryID = category._id;
+      } else {
+        throwApiError(
+          CustomExceptionCode.API_ERROR,
+          ApiErrorEnum.api_error_category_not_found,
+        );
+      }
+    }
+
+    const bookList = await this.bookModel
+      .find(query)
+      .populate('AuthorID', 'AuthorName')
+      .populate('CategoryID', 'CategoryName');
+
+    return bookList.map((book) => ({
+      bookName: book.BookName,
+      price: book.Price,
+      author: { AuthorName: book.AuthorID?.AuthorName },
+      categories: book.CategoryID?.map((category) => ({
+        CategoryName: category.CategoryName,
+      })),
+    }));
   }
 }
