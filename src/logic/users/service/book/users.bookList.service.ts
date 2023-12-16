@@ -9,6 +9,7 @@ import { ApiErrorEnum } from '../../../../enum/apiError.enum';
 import { Author } from '../../../../schemas/author.schema';
 import { Category } from '../../../../schemas/category.schema';
 import { ListBookResponseDto } from '../../dto/request/book/listBook.response.dto';
+import { AuthRequestDto } from '../../../../custom/jwt/dto/auth.request.dto';
 
 @Injectable()
 export class UsersBookListService {
@@ -21,7 +22,10 @@ export class UsersBookListService {
     private categoryModel: mongoose.Model<Category>,
   ) {}
 
-  async showBookDetail(bookID: string): Promise<ShowBookDetailResponseDto> {
+  async showBookDetail(
+    auth: AuthRequestDto,
+    bookID: string,
+  ): Promise<ShowBookDetailResponseDto> {
     const validObjectId = Types.ObjectId.isValid(bookID);
     if (!validObjectId) {
       throwApiError(
@@ -32,6 +36,7 @@ export class UsersBookListService {
     const book = await this.bookModel.findOne({
       _id: bookID,
       IsDeleted: false,
+      UserID: auth.user.id,
     });
     if (!book) {
       throwApiError(
@@ -63,6 +68,7 @@ export class UsersBookListService {
   }
 
   async listBook(
+    auth: AuthRequestDto,
     authorName?: string,
     categoryName?: string,
   ): Promise<ListBookResponseDto[]> {
@@ -71,6 +77,7 @@ export class UsersBookListService {
       const author = await this.authorModel.findOne({
         AuthorName: authorName,
         IsDeleted: false,
+        UserID: auth.user.id,
       });
       console.log(author);
       if (author) {
@@ -87,6 +94,7 @@ export class UsersBookListService {
       const category = await this.categoryModel.findOne({
         CategoryName: categoryName,
         IsDeleted: false,
+        UserID: auth.user.id,
       });
       if (category) {
         query.CategoryID = category._id;
