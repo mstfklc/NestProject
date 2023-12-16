@@ -9,7 +9,7 @@ import { ListAuthorResponseDto } from '../../dto/response/author/listAuthor.resp
 import { Roles } from '../../../../custom/decorator/role/role.decorator';
 import { Role } from '../../../../enum/role.enum';
 
-@ApiTags('Users')
+@ApiTags('Author')
 @ApiSecurity('access-token')
 @Controller('author')
 @Roles(Role.User)
