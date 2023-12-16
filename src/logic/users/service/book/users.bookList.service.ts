@@ -8,7 +8,7 @@ import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
 import { ApiErrorEnum } from '../../../../enum/apiError.enum';
 import { Author } from '../../../../schemas/author.schema';
 import { Category } from '../../../../schemas/category.schema';
-import { ListBookResponseDto } from '../../dto/request/book/listBook.response.dto';
+import { ListBookResponseDto } from '../../dto/response/book/listBook.response.dto';
 import { AuthRequestDto } from '../../../../custom/jwt/dto/auth.request.dto';
 
 @Injectable()

@@ -5,7 +5,7 @@ import { Role } from '../../../../enum/role.enum';
 import { UsersBookListService } from '../../service/book/users.bookList.service';
 import { ShowBookDetailResponseDto } from '../../dto/response/book/showBookDetail.response.dto';
 import { JwtAuthGuard } from '../../../../custom/jwt/guard/jwt.guard';
-import { ListBookResponseDto } from '../../dto/request/book/listBook.response.dto';
+import { ListBookResponseDto } from '../../dto/response/book/listBook.response.dto';
 import { AuthRequestDto } from '../../../../custom/jwt/dto/auth.request.dto';
 
 @ApiTags('Book')

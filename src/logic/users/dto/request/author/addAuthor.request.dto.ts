@@ -3,8 +3,10 @@ import * as joi from 'joi';
 
 export class AddAuthorRequestDto {
   @ApiProperty({
-    description: 'Author name',
+    type: 'String',
+    description: 'Author name must be between 1 and 50 characters',
     example: 'Test Author',
+    required: true,
   })
   authorName: string;
 }

@@ -4,26 +4,34 @@ import { ObjectId } from 'mongoose';
 
 export class AddBookRequestDto {
   @ApiProperty({
-    description: 'Book name',
+    type: 'String',
+    description: 'Book name must be min 1 and max 50 characters',
     example: 'Test Book',
+    required: true,
   })
   bookName: string;
 
   @ApiProperty({
+    type: 'Number',
     description: 'Book price',
     example: 100,
+    required: true,
   })
   price: number;
 
   @ApiProperty({
-    description: 'Author ID',
+    type: 'ObjectID',
+    description: 'Author ID must be an ObjectID',
     example: '5f5d2a7e8d8e4c1a0c7f1b8d',
+    required: true,
   })
   authorID: ObjectId;
 
   @ApiProperty({
-    description: 'Category ID',
+    type: 'ObjectID',
+    description: 'Category ID must be an array of ObjectID',
     example: ['5f5d2a7e8d8e4c1a0c7f1b8d', '5f5d2a7e8d8e4c1a0c7f1b8d'],
+    required: true,
   })
   categoryID: ObjectId[];
 }

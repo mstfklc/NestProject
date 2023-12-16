@@ -3,18 +3,25 @@ import * as Joi from 'joi';
 
 export class RegisterRequestDto {
   @ApiProperty({
-    description: 'Email',
+    type: 'string',
+    description: 'Email must be a valid email address',
     example: 'test@gmail.com',
+    required: true,
   })
   email: string;
   @ApiProperty({
+    type: 'string',
     description: 'Full name',
     example: 'Mustafa Kilic',
+    required: true,
   })
   fullName: string;
   @ApiProperty({
-    description: 'Password',
+    type: 'string',
+    description:
+      'Password must be at least 8 characters long and contain at least one uppercase letter',
     example: '1234567M',
+    required: true,
   })
   password: string;
 }

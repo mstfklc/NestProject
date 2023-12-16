@@ -3,8 +3,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class AddCategoryRequestDto {
   @ApiProperty({
-    description: 'Category name',
+    description: 'Category name must be between 1 and 50 characters',
     example: 'Test Category',
+    required: true,
   })
   categoryName: string;
 }

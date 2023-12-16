@@ -2,20 +2,32 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 class AuthorDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Author Name',
+    example: 'Test Author',
+  })
   AuthorName: string;
 }
 
 class CategoryDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Category Name',
+    example: 'Test Category',
+  })
   CategoryName: string;
 }
 
 export class ListBookResponseDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Book Name',
+    example: 'Test Book',
+  })
   bookName: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Book Price',
+    example: 100,
+  })
   price: number;
 
   @ApiProperty({ type: AuthorDto })
