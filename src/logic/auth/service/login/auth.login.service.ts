@@ -58,34 +58,4 @@ export class AuthLoginService implements AuthLoginInterface {
 
     return new LoginResponseDto(token);
   }
-
-  /*async adminLogin(req: LoginRequestDto): Promise<LoginResponseDto> {
-      const admin = await this.userModel.findOne({
-        Email: req.email,
-        IsDeleted: false,
-        Roles: Role.Admin,
-      });
-      if (!admin) {
-        throwApiError(
-          CustomExceptionCode.API_ERROR,
-          ApiErrorEnum.api_error_credential_invalid,
-        );
-      }
-      const isPasswordMatch = await bcrypt.compare(
-        req.password,
-        admin.PasswordHashed,
-      );
-      if (!isPasswordMatch) {
-        throwApiError(
-          CustomExceptionCode.API_ERROR,
-          ApiErrorEnum.api_error_credential_invalid,
-        );
-      }
-      const accessToken = this.jwtService.sign({
-        id: admin._id,
-        fullName: admin.FullName,
-        roles: admin.Roles,
-      });
-      return new LoginResponseDto(accessToken);
-    }*/
 }
