@@ -19,6 +19,11 @@ class CategoryDto {
 
 export class ListBookResponseDto {
   @ApiProperty({
+    description: 'Book ID',
+    example: '5f8c8a5a5d3d2e2d3c1e2d3f',
+  })
+  bookID: string;
+  @ApiProperty({
     description: 'Book Name',
     example: 'Test Book',
   })
