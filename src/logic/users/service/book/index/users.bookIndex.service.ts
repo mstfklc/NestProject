@@ -1,26 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Book } from '../../../../schemas/book.schema';
+import { Book } from '../../../../../schemas/book.schema';
 import mongoose from 'mongoose';
-import { SuccessResponseDto } from '../../../../dto/success.response.dto';
+import { SuccessResponseDto } from '../../../../../dto/success.response.dto';
 import {
   AddBookRequestDto,
   AddBookValidation,
-} from '../../dto/request/book/addBook.request.dto';
-import { AuthRequestDto } from '../../../../custom/jwt/dto/auth.request.dto';
-import { throwApiError } from '../../../../util/http.utility';
-import { ApiErrorEnum } from '../../../../enum/apiError.enum';
-import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
-import { Author } from '../../../../schemas/author.schema';
-import { Category } from '../../../../schemas/category.schema';
+} from '../../../dto/request/book/addBook.request.dto';
+import { AuthRequestDto } from '../../../../../custom/jwt/dto/auth.request.dto';
+import { throwApiError } from '../../../../../util/http.utility';
+import { ApiErrorEnum } from '../../../../../enum/apiError.enum';
+import { CustomExceptionCode } from '../../../../../enum/customExceptionCode.enum';
+import { Author } from '../../../../../schemas/author.schema';
+import { Category } from '../../../../../schemas/category.schema';
 import {
   DeleteBookRequestDto,
   DeleteBookValidation,
-} from '../../dto/request/book/deleteBook.request.dto';
-import { UpdateBookRequestDto } from '../../dto/request/book/updateBook.request.dto';
+} from '../../../dto/request/book/deleteBook.request.dto';
+import { UpdateBookRequestDto } from '../../../dto/request/book/updateBook.request.dto';
+import { UsersBookIndexInterface } from './users.bookIndex.interface';
 
 @Injectable()
-export class UsersBookIndexService {
+export class UsersBookIndexService implements UsersBookIndexInterface {
   constructor(
     @InjectModel(Book.name)
     private bookModel: mongoose.Model<Book>,

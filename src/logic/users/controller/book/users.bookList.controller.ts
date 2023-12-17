@@ -2,7 +2,7 @@ import { ApiOkResponse, ApiQuery, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Param, Query, Req, UseGuards } from '@nestjs/common';
 import { Roles } from '../../../../custom/decorator/role/role.decorator';
 import { Role } from '../../../../enum/role.enum';
-import { UsersBookListService } from '../../service/book/users.bookList.service';
+import { UsersBookListService } from '../../service/book/list/users.bookList.service';
 import { ShowBookDetailResponseDto } from '../../dto/response/book/showBookDetail.response.dto';
 import { JwtAuthGuard } from '../../../../custom/jwt/guard/jwt.guard';
 import { ListBookResponseDto } from '../../dto/response/book/listBook.response.dto';

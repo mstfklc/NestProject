@@ -17,9 +17,10 @@ import {
   DeleteCategoryValidation,
 } from '../../dto/request/category/deleteCategory.request.dto';
 import { Book } from '../../../../schemas/book.schema';
+import { UsersCategoryInterface } from './users.category.interface';
 
 @Injectable()
-export class UsersCategoryService {
+export class UsersCategoryService implements UsersCategoryInterface {
   constructor(
     @InjectModel('Book')
     private bookModel: mongoose.Model<Book>,

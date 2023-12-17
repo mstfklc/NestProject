@@ -12,9 +12,10 @@ import { throwApiError } from '../../../../util/http.utility';
 import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
 import { ApiErrorEnum } from '../../../../enum/apiError.enum';
 import { ListAuthorResponseDto } from '../../dto/response/author/listAuthor.response.dto';
+import { UsersAuthorInterface } from './users.author.interface';
 
 @Injectable()
-export class UsersAuthorService {
+export class UsersAuthorService implements UsersAuthorInterface {
   constructor(
     @InjectModel(Author.name)
     private authorModel: mongoose.Model<Author>,

@@ -12,9 +12,10 @@ import {
 import LoginResponseDto from '../../dto/response/login/login.response.dto';
 import * as bcrypt from 'bcrypt';
 import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
+import { AuthLoginInterface } from './auth.login.interface';
 
 @Injectable()
-export class AuthLoginService {
+export class AuthLoginService implements AuthLoginInterface {
   constructor(
     @InjectModel(User.name)
     private userModel: mongoose.Model<User>,
@@ -59,32 +60,32 @@ export class AuthLoginService {
   }
 
   /*async adminLogin(req: LoginRequestDto): Promise<LoginResponseDto> {
-    const admin = await this.userModel.findOne({
-      Email: req.email,
-      IsDeleted: false,
-      Roles: Role.Admin,
-    });
-    if (!admin) {
-      throwApiError(
-        CustomExceptionCode.API_ERROR,
-        ApiErrorEnum.api_error_credential_invalid,
+      const admin = await this.userModel.findOne({
+        Email: req.email,
+        IsDeleted: false,
+        Roles: Role.Admin,
+      });
+      if (!admin) {
+        throwApiError(
+          CustomExceptionCode.API_ERROR,
+          ApiErrorEnum.api_error_credential_invalid,
+        );
+      }
+      const isPasswordMatch = await bcrypt.compare(
+        req.password,
+        admin.PasswordHashed,
       );
-    }
-    const isPasswordMatch = await bcrypt.compare(
-      req.password,
-      admin.PasswordHashed,
-    );
-    if (!isPasswordMatch) {
-      throwApiError(
-        CustomExceptionCode.API_ERROR,
-        ApiErrorEnum.api_error_credential_invalid,
-      );
-    }
-    const accessToken = this.jwtService.sign({
-      id: admin._id,
-      fullName: admin.FullName,
-      roles: admin.Roles,
-    });
-    return new LoginResponseDto(accessToken);
-  }*/
+      if (!isPasswordMatch) {
+        throwApiError(
+          CustomExceptionCode.API_ERROR,
+          ApiErrorEnum.api_error_credential_invalid,
+        );
+      }
+      const accessToken = this.jwtService.sign({
+        id: admin._id,
+        fullName: admin.FullName,
+        roles: admin.Roles,
+      });
+      return new LoginResponseDto(accessToken);
+    }*/
 }

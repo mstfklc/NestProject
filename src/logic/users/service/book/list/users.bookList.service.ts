@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Book } from '../../../../schemas/book.schema';
+import { Book } from '../../../../../schemas/book.schema';
 import mongoose, { Types } from 'mongoose';
-import { ShowBookDetailResponseDto } from '../../dto/response/book/showBookDetail.response.dto';
-import { throwApiError } from '../../../../util/http.utility';
-import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
-import { ApiErrorEnum } from '../../../../enum/apiError.enum';
-import { Author } from '../../../../schemas/author.schema';
-import { Category } from '../../../../schemas/category.schema';
-import { ListBookResponseDto } from '../../dto/response/book/listBook.response.dto';
-import { AuthRequestDto } from '../../../../custom/jwt/dto/auth.request.dto';
+import { ShowBookDetailResponseDto } from '../../../dto/response/book/showBookDetail.response.dto';
+import { throwApiError } from '../../../../../util/http.utility';
+import { CustomExceptionCode } from '../../../../../enum/customExceptionCode.enum';
+import { ApiErrorEnum } from '../../../../../enum/apiError.enum';
+import { Author } from '../../../../../schemas/author.schema';
+import { Category } from '../../../../../schemas/category.schema';
+import { ListBookResponseDto } from '../../../dto/response/book/listBook.response.dto';
+import { AuthRequestDto } from '../../../../../custom/jwt/dto/auth.request.dto';
+import { UsersBookListInterface } from './users.bookList.interface';
 
 @Injectable()
-export class UsersBookListService {
+export class UsersBookListService implements UsersBookListInterface {
   constructor(
     @InjectModel('Book')
     private bookModel: mongoose.Model<Book>,
@@ -79,7 +80,6 @@ export class UsersBookListService {
         IsDeleted: false,
         UserID: auth.user.id,
       });
-      console.log(author);
       if (author) {
         query.AuthorID = author._id;
       } else {

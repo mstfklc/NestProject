@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UsersBookIndexService } from '../../service/book/users.bookIndex.service';
+import { UsersBookIndexService } from '../../service/book/index/users.bookIndex.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BookSchema } from '../../../../schemas/book.schema';
 import { CategorySchema } from '../../../../schemas/category.schema';

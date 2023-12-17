@@ -11,9 +11,10 @@ import { throwApiError } from '../../../../util/http.utility';
 import { ApiErrorEnum } from '../../../../enum/apiError.enum';
 import { SuccessResponseDto } from '../../../../dto/success.response.dto';
 import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
+import { AuthRegisterInterface } from './auth.register.interface';
 
 @Injectable()
-export class AuthRegisterService {
+export class AuthRegisterService implements AuthRegisterInterface {
   constructor(
     @InjectModel(User.name)
     private userModel: mongoose.Model<User>,

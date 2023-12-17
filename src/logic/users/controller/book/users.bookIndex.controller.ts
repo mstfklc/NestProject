@@ -7,7 +7,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { UsersBookIndexService } from '../../service/book/users.bookIndex.service';
+import { UsersBookIndexService } from '../../service/book/index/users.bookIndex.service';
 import { ApiOkResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { AddBookRequestDto } from '../../dto/request/book/addBook.request.dto';
 import { AuthRequestDto } from '../../../../custom/jwt/dto/auth.request.dto';
