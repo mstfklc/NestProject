@@ -111,7 +111,10 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
         ApiErrorEnum.api_error_book_not_found,
       );
     }
-    await this.bookModel.updateOne({ _id: req.bookID }, { IsDeleted: true });
+    await this.bookModel.updateOne(
+      { _id: req.bookID, UserID: auth.user.id },
+      { IsDeleted: true },
+    );
     return Promise.resolve({ status: true });
   }
 
