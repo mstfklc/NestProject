@@ -66,36 +66,43 @@ export class UsersBookListService implements UsersBookListInterface {
     categoryName?: string,
   ): Promise<ListBookResponseDto[]> {
     const query: any = {};
-    if (authorName) {
+
+    const addAuthorToQuery = async (name: string) => {
       const author = await this.authorModel.findOne({
-        AuthorName: authorName,
+        AuthorName: name,
         IsDeleted: false,
         UserID: auth.user.id,
       });
-      if (author) {
-        query.AuthorID = author._id;
-      } else {
+      if (!author) {
         throwApiError(
           CustomExceptionCode.API_ERROR,
           ApiErrorEnum.api_error_author_not_found,
         );
       }
-    }
+      query.AuthorID = author._id;
+    };
 
-    if (categoryName) {
+    const addCategoryToQuery = async (name: string) => {
       const category = await this.categoryModel.findOne({
-        CategoryName: categoryName,
+        CategoryName: name,
         IsDeleted: false,
         UserID: auth.user.id,
       });
-      if (category) {
-        query.CategoryID = category._id;
-      } else {
+      if (!category) {
         throwApiError(
           CustomExceptionCode.API_ERROR,
           ApiErrorEnum.api_error_category_not_found,
         );
       }
+      query.CategoryID = category._id;
+    };
+
+    if (authorName) {
+      await addAuthorToQuery(authorName);
+    }
+
+    if (categoryName) {
+      await addCategoryToQuery(categoryName);
     }
 
     const bookList = await this.bookModel
