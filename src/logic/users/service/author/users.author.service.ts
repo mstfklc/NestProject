@@ -17,12 +17,14 @@ import {
   DeleteAuthorRequestDto,
   DeleteAuthorValidation,
 } from '../../dto/request/author/deleteAuthor.request.dto';
+import { Book } from '../../../../schemas/book.schema';
 
 @Injectable()
 export class UsersAuthorService implements UsersAuthorInterface {
   constructor(
-    @InjectModel(Author.name)
+    @InjectModel('Author')
     private authorModel: mongoose.Model<Author>,
+    @InjectModel('Book') private bookModel: mongoose.Model<Book>,
   ) {}
 
   async addAuthor(
@@ -90,6 +92,16 @@ export class UsersAuthorService implements UsersAuthorInterface {
       throwApiError(
         CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_author_not_found,
+      );
+    }
+    const checkAuthor = await this.bookModel.findOne({
+      AuthorID: req.authorID,
+      IsDeleted: false,
+    });
+    if (checkAuthor) {
+      throwApiError(
+        CustomExceptionCode.API_ERROR,
+        ApiErrorEnum.api_error_author_has_books,
       );
     }
     await this.authorModel.updateOne(

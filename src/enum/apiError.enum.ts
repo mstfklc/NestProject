@@ -14,4 +14,5 @@ export enum ApiErrorEnum {
   api_error_book_name_already_exists = 13,
   api_error_invalid_object_id = 14,
   api_error_category_has_book = 15,
+  api_error_author_has_books = 16,
 }
