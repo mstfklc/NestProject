@@ -96,6 +96,7 @@ export class UsersAuthorService implements UsersAuthorInterface {
     }
     const checkAuthor = await this.bookModel.findOne({
       AuthorID: req.authorID,
+      UserID: auth.user.id,
       IsDeleted: false,
     });
     if (checkAuthor) {
