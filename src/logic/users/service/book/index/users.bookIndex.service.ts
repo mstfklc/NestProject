@@ -133,15 +133,12 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
         ApiErrorEnum.api_error_book_not_found,
       );
     }
-    try {
-      if (req.bookName && req.bookName !== bookCheck.BookName) {
-        await this.bookModel.findOne({
-          BookName: req.bookName,
-          UserID: auth.user.id,
-          IsDeleted: false,
-        });
-      }
-    } catch (err) {
+    if (req.bookName && req.bookName !== bookCheck.BookName) {
+      await this.bookModel.findOne({
+        BookName: req.bookName,
+        UserID: auth.user.id,
+        IsDeleted: false,
+      });
       throwApiError(
         CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_book_name_already_exists,
