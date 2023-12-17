@@ -3,7 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { json, urlencoded } from 'express';
-import * as csurf from 'csurf';
+//import * as csurf from 'csurf';
 import helmet from 'helmet';
 
 async function bootstrap() {
@@ -31,7 +31,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/document', app, document);
   app.useGlobalPipes(new ValidationPipe());
-  app.use(csurf());
+  //app.use(csurf());
   app.use(
     helmet({
       crossOriginEmbedderPolicy: false,
