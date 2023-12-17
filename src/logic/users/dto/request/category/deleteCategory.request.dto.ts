@@ -4,7 +4,7 @@ import * as joi from 'joi';
 
 export class DeleteCategoryRequestDto {
   @ApiProperty({
-    type: 'String',
+    type: 'ObjectId',
     description: 'Category ID',
     example: '5f5d2a7e8d8e4c1a0c7f1b8d',
   })
