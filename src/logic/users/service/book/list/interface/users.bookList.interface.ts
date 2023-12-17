@@ -1,6 +1,6 @@
-import { AuthRequestDto } from '../../../../../custom/jwt/dto/auth.request.dto';
-import { ShowBookDetailResponseDto } from '../../../dto/response/book/showBookDetail.response.dto';
-import { ListBookResponseDto } from '../../../dto/response/book/listBook.response.dto';
+import { AuthRequestDto } from '../../../../../../custom/jwt/dto/auth.request.dto';
+import { ShowBookDetailResponseDto } from '../../../../dto/response/book/showBookDetail.response.dto';
+import { ListBookResponseDto } from '../../../../dto/response/book/listBook.response.dto';
 
 export interface UsersBookListInterface {
   showBookDetail(

@@ -18,7 +18,7 @@ import {
   DeleteBookValidation,
 } from '../../../dto/request/book/deleteBook.request.dto';
 import { UpdateBookRequestDto } from '../../../dto/request/book/updateBook.request.dto';
-import { UsersBookIndexInterface } from './users.bookIndex.interface';
+import { UsersBookIndexInterface } from './interface/users.bookIndex.interface';
 
 @Injectable()
 export class UsersBookIndexService implements UsersBookIndexInterface {

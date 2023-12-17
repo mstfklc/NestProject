@@ -10,7 +10,7 @@ import { Author } from '../../../../../schemas/author.schema';
 import { Category } from '../../../../../schemas/category.schema';
 import { ListBookResponseDto } from '../../../dto/response/book/listBook.response.dto';
 import { AuthRequestDto } from '../../../../../custom/jwt/dto/auth.request.dto';
-import { UsersBookListInterface } from './users.bookList.interface';
+import { UsersBookListInterface } from './interface/users.bookList.interface';
 
 @Injectable()
 export class UsersBookListService implements UsersBookListInterface {

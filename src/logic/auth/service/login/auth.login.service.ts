@@ -12,7 +12,7 @@ import {
 import LoginResponseDto from '../../dto/response/login/login.response.dto';
 import * as bcrypt from 'bcrypt';
 import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
-import { AuthLoginInterface } from './auth.login.interface';
+import { AuthLoginInterface } from './interface/auth.login.interface';
 
 @Injectable()
 export class AuthLoginService implements AuthLoginInterface {

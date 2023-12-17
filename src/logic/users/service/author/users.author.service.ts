@@ -12,7 +12,7 @@ import { throwApiError } from '../../../../util/http.utility';
 import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
 import { ApiErrorEnum } from '../../../../enum/apiError.enum';
 import { ListAuthorResponseDto } from '../../dto/response/author/listAuthor.response.dto';
-import { UsersAuthorInterface } from './users.author.interface';
+import { UsersAuthorInterface } from './interface/users.author.interface';
 import {
   DeleteAuthorRequestDto,
   DeleteAuthorValidation,

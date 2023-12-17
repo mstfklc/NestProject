@@ -17,7 +17,7 @@ import {
   DeleteCategoryValidation,
 } from '../../dto/request/category/deleteCategory.request.dto';
 import { Book } from '../../../../schemas/book.schema';
-import { UsersCategoryInterface } from './users.category.interface';
+import { UsersCategoryInterface } from './interface/users.category.interface';
 
 @Injectable()
 export class UsersCategoryService implements UsersCategoryInterface {
