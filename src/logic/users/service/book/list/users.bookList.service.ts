@@ -34,36 +34,28 @@ export class UsersBookListService implements UsersBookListInterface {
         ApiErrorEnum.api_error_invalid_object_id,
       );
     }
-    const book = await this.bookModel.findOne({
-      _id: bookID,
-      IsDeleted: false,
-      UserID: auth.user.id,
-    });
+    const book = await this.bookModel
+      .findOne({
+        _id: bookID,
+        IsDeleted: false,
+        UserID: auth.user.id,
+      })
+      .populate('AuthorID', 'AuthorName')
+      .populate('CategoryID', 'CategoryName');
+
     if (!book) {
       throwApiError(
         CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_book_not_found,
       );
     }
-    const author = await this.authorModel.findOne({
-      _id: book.AuthorID,
-      IsDeleted: false,
-    });
-    const categoryIDs = book.CategoryID.map((category) => category.toString());
-
-    const categoryNames = await this.categoryModel.find({
-      _id: { $in: categoryIDs },
-      IsDeleted: false,
-    });
-    const categoryNamesMap = categoryNames.map(
-      (category) => category.CategoryName,
-    );
-
     const response: ShowBookDetailResponseDto = {
       bookName: book.BookName,
       price: book.Price,
-      authorName: author.AuthorName,
-      bookCategoryName: categoryNamesMap,
+      authorName: book.AuthorID.AuthorName,
+      bookCategoryName: book.CategoryID.map(
+        (category) => category.CategoryName,
+      ),
     };
     return Promise.resolve(response);
   }
@@ -112,6 +104,7 @@ export class UsersBookListService implements UsersBookListInterface {
       .populate('CategoryID', 'CategoryName');
 
     return bookList.map((book) => ({
+      bookID: book._id.toString(),
       bookName: book.BookName,
       price: book.Price,
       author: { AuthorName: book.AuthorID?.AuthorName },
