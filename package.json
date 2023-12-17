@@ -33,6 +33,8 @@
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "csurf": "^1.11.0",
+    "helmet": "^7.1.0",
     "mongoose": "^8.0.3",
     "nestjs-joi": "^1.10.0",
     "passport-jwt": "^4.0.1",
