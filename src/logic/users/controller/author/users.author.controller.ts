@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiOkResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { UsersAuthorService } from '../../service/author/users.author.service';
 import { SuccessResponseDto } from '../../../../dto/success.response.dto';
@@ -8,6 +16,7 @@ import { AuthRequestDto } from '../../../../custom/jwt/dto/auth.request.dto';
 import { ListAuthorResponseDto } from '../../dto/response/author/listAuthor.response.dto';
 import { Roles } from '../../../../custom/decorator/role/role.decorator';
 import { Role } from '../../../../enum/role.enum';
+import { DeleteAuthorRequestDto } from '../../dto/request/author/deleteAuthor.request.dto';
 
 @ApiTags('Author')
 @ApiSecurity('access-token')
@@ -31,5 +40,15 @@ export class UsersAuthorController {
   @UseGuards(JwtAuthGuard)
   listAuthors(@Req() auth: AuthRequestDto): Promise<ListAuthorResponseDto> {
     return this.usersAuthorService.listAuthors(auth);
+  }
+
+  @Delete()
+  @ApiOkResponse({ type: SuccessResponseDto })
+  @UseGuards(JwtAuthGuard)
+  deleteAuthor(
+    @Body() req: DeleteAuthorRequestDto,
+    @Req() auth: AuthRequestDto,
+  ): Promise<SuccessResponseDto> {
+    return this.usersAuthorService.deleteAuthor(req, auth);
   }
 }

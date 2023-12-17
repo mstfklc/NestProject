@@ -13,6 +13,10 @@ import { CustomExceptionCode } from '../../../../enum/customExceptionCode.enum';
 import { ApiErrorEnum } from '../../../../enum/apiError.enum';
 import { ListAuthorResponseDto } from '../../dto/response/author/listAuthor.response.dto';
 import { UsersAuthorInterface } from './users.author.interface';
+import {
+  DeleteAuthorRequestDto,
+  DeleteAuthorValidation,
+} from '../../dto/request/author/deleteAuthor.request.dto';
 
 @Injectable()
 export class UsersAuthorService implements UsersAuthorInterface {
@@ -63,5 +67,35 @@ export class UsersAuthorService implements UsersAuthorInterface {
       })),
     };
     return Promise.resolve(response);
+  }
+
+  async deleteAuthor(
+    req: DeleteAuthorRequestDto,
+    auth: AuthRequestDto,
+  ): Promise<SuccessResponseDto> {
+    try {
+      await DeleteAuthorValidation.validateAsync(req);
+    } catch (err) {
+      throwApiError(
+        CustomExceptionCode.BAD_REQUEST,
+        ApiErrorEnum.api_error_invalid_input_data,
+      );
+    }
+    const author = await this.authorModel.findOne({
+      _id: req.authorID,
+      UserID: auth.user.id,
+      IsDeleted: false,
+    });
+    if (!author) {
+      throwApiError(
+        CustomExceptionCode.API_ERROR,
+        ApiErrorEnum.api_error_author_not_found,
+      );
+    }
+    await this.authorModel.updateOne(
+      { _id: req.authorID },
+      { IsDeleted: true },
+    );
+    return Promise.resolve({ status: true });
   }
 }
