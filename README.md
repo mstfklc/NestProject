@@ -3,6 +3,7 @@
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
@@ -24,15 +25,33 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. This is a simple project to learn
+NestJS. It uses MongoDB as database and JWT for authentication. It also uses Swagger for API documentation.
 
-## Installation
+## Requirements
+
+- NodeJS
+- MongoDB
+- Docker (optional)
+
+## Important
+
+- You must have installed MongoDB before running the app. If you haven't installed it yet, you can check the
+  installation here on https://docs.mongodb.com/manual/installation/.
+
+#### You must create an .env file in your local and add:
+
+- "JWT_SECRET_KEY"=your_secret_key,
+
+- "JWT_EXPIRES_IN"=30d,
+
+- "MONGO_CONNECTION_STRING"=mongodb://localhost:27017/your_database
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Running the app after installation
 
 ```bash
 # development
@@ -40,33 +59,25 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+## Running the app with Docker
+
+If u want to run the app with docker, you must have installed docker before. If you haven't installed it yet, you can
+check the installation here on https://www.docker.com/products/docker-desktop/.
 
 ```bash
-# unit tests
-$ npm run test
+# build docker image
+$ docker build -t my-node-app .
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# run docker image
+$ docker run -p 3000:3000 my-node-app
 ```
 
-## Support
+## Documentation
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+You can access the Swagger API documentation at http://localhost:3000/api/document after running the application. You
+can see the API and request validations, you can test endpoints.
 
 ## License
 
