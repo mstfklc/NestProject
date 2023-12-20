@@ -46,7 +46,7 @@ export class UsersAuthorService implements UsersAuthorInterface {
     });
     if (author) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_author_already_exists,
       );
     }
@@ -90,7 +90,7 @@ export class UsersAuthorService implements UsersAuthorInterface {
     });
     if (!author) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_author_not_found,
       );
     }
@@ -101,7 +101,7 @@ export class UsersAuthorService implements UsersAuthorInterface {
     });
     if (checkAuthor) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_author_has_books,
       );
     }

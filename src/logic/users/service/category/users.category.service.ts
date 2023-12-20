@@ -47,7 +47,7 @@ export class UsersCategoryService implements UsersCategoryInterface {
     });
     if (category) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_category_already_exists,
       );
     }
@@ -91,7 +91,7 @@ export class UsersCategoryService implements UsersCategoryInterface {
     });
     if (!category) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_category_not_found,
       );
     }
@@ -102,7 +102,7 @@ export class UsersCategoryService implements UsersCategoryInterface {
     });
     if (categoryRelationCheck.length > 0) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_category_has_book,
       );
     }

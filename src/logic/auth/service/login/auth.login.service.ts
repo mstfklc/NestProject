@@ -37,7 +37,7 @@ export class AuthLoginService implements AuthLoginInterface {
     });
     if (!user) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_user_not_found,
       );
     }
@@ -47,7 +47,7 @@ export class AuthLoginService implements AuthLoginInterface {
     );
     if (!isPasswordMatch) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_credential_invalid,
       );
     }

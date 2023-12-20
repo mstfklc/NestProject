@@ -50,7 +50,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (!authorCheck) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_author_not_found,
       );
     }
@@ -63,7 +63,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (!categoryCheck || categoryCheck.length === 0) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_category_not_found,
       );
     }
@@ -74,7 +74,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (bookCheck) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_book_already_exists,
       );
     }
@@ -107,7 +107,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (!bookCheck) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_book_not_found,
       );
     }
@@ -129,7 +129,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (!bookCheck) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_book_not_found,
       );
     }
@@ -153,7 +153,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
       });
       if (!categoryCheck || categoryCheck.length !== req.categoryID.length) {
         throwApiError(
-          CustomExceptionCode.API_ERROR,
+          CustomExceptionCode.BAD_REQUEST,
           ApiErrorEnum.api_error_category_not_found,
         );
       }
@@ -166,7 +166,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
       });
       if (!authorCheck) {
         throwApiError(
-          CustomExceptionCode.API_ERROR,
+          CustomExceptionCode.BAD_REQUEST,
           ApiErrorEnum.api_error_author_not_found,
         );
       }
@@ -181,7 +181,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     const updateResult = await this.bookModel.updateOne(updateOptions);
     if (updateResult.modifiedCount === 0) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_update_book_failed,
       );
     }

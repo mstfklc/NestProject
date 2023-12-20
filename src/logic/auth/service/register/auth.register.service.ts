@@ -24,7 +24,7 @@ export class AuthRegisterService implements AuthRegisterInterface {
     const user = await this.userModel.findOne({ Email: req.email });
     if (user) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_user_already_exist,
       );
     }

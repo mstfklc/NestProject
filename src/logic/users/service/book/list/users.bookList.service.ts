@@ -30,7 +30,7 @@ export class UsersBookListService implements UsersBookListInterface {
     const validObjectId = Types.ObjectId.isValid(bookID);
     if (!validObjectId) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_invalid_object_id,
       );
     }
@@ -45,7 +45,7 @@ export class UsersBookListService implements UsersBookListInterface {
 
     if (!book) {
       throwApiError(
-        CustomExceptionCode.API_ERROR,
+        CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_book_not_found,
       );
     }
@@ -75,7 +75,7 @@ export class UsersBookListService implements UsersBookListInterface {
       });
       if (!author) {
         throwApiError(
-          CustomExceptionCode.API_ERROR,
+          CustomExceptionCode.BAD_REQUEST,
           ApiErrorEnum.api_error_author_not_found,
         );
       }
@@ -90,7 +90,7 @@ export class UsersBookListService implements UsersBookListInterface {
       });
       if (!category) {
         throwApiError(
-          CustomExceptionCode.API_ERROR,
+          CustomExceptionCode.BAD_REQUEST,
           ApiErrorEnum.api_error_category_not_found,
         );
       }
