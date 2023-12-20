@@ -59,6 +59,8 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
+# launch tests
+$ npm run test
 ```
 
 ## Running the app with Docker
