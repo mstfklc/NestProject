@@ -17,7 +17,10 @@ import {
   DeleteBookRequestDto,
   DeleteBookValidation,
 } from '../../../dto/request/book/deleteBook.request.dto';
-import { UpdateBookRequestDto } from '../../../dto/request/book/updateBook.request.dto';
+import {
+  UpdateBookRequestDto,
+  UpdateBookValidation,
+} from '../../../dto/request/book/updateBook.request.dto';
 import { UsersBookIndexInterface } from './interface/users.bookIndex.interface';
 
 @Injectable()
@@ -122,6 +125,14 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     req: UpdateBookRequestDto,
     auth: AuthRequestDto,
   ): Promise<SuccessResponseDto> {
+    try {
+      await UpdateBookValidation.validateAsync(req);
+    } catch (err) {
+      throwApiError(
+        CustomExceptionCode.BAD_REQUEST,
+        ApiErrorEnum.api_error_invalid_input_data,
+      );
+    }
     const bookCheck = await this.bookModel.findOne({
       _id: req.bookID,
       UserID: auth.user.id,

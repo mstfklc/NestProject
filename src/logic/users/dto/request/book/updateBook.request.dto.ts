@@ -41,8 +41,9 @@ export class UpdateBookRequestDto {
 }
 
 export const UpdateBookValidation = joi.object({
-  bookID: joi.string().required(),
-  bookName: joi.string().min(1).max(50),
-  price: joi.number(),
-  categoryID: joi.array().items(joi.string()),
+  bookID: joi.required(),
+  bookName: joi.string().min(1).max(50).optional(),
+  price: joi.number().optional(),
+  authorID: joi.optional(),
+  categoryID: joi.array().optional(),
 });
