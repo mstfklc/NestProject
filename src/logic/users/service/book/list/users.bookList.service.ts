@@ -65,7 +65,7 @@ export class UsersBookListService implements UsersBookListInterface {
     authorName?: string,
     categoryName?: string,
   ): Promise<ListBookResponseDto[]> {
-    const query: any = {};
+    const query: any = { IsDeleted: false, UserID: auth.user.id };
 
     const addAuthorToQuery = async (name: string) => {
       const author = await this.authorModel.findOne({
