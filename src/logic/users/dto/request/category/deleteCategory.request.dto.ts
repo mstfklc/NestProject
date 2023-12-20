@@ -7,6 +7,7 @@ export class DeleteCategoryRequestDto {
     type: 'ObjectId',
     description: 'Category ID',
     example: '5f5d2a7e8d8e4c1a0c7f1b8d',
+    required: true,
   })
   categoryID: Types.ObjectId;
 }
