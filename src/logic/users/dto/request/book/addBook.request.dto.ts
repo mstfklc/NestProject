@@ -22,7 +22,7 @@ export class AddBookRequestDto {
   @ApiProperty({
     type: 'ObjectID',
     description: 'Author ID must be an ObjectID',
-    example: '5f5d2a7e8d8e4c1a0c7f1b8d',
+    example: '657c9a7a3c67ae26c23aa2e6',
     required: true,
   })
   authorID: Types.ObjectId;
@@ -30,7 +30,7 @@ export class AddBookRequestDto {
   @ApiProperty({
     type: 'ObjectID',
     description: 'Category ID must be an array of ObjectID',
-    example: ['5f5d2a7e8d8e4c1a0c7f1b8d', '5f5d2a7e8d8e4c1a0c7f1b8d'],
+    example: ['657c9a7a3c67ae26c23aa2e6', '657c9a7a3c67ae26c23aa2e6'],
     required: true,
   })
   categoryID: Types.ObjectId[];
