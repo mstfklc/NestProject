@@ -6,7 +6,7 @@ export class DeleteBookRequestDto {
   @ApiProperty({
     type: 'ObjectId',
     description: 'Book ID must be ObjectId',
-    example: '5f1e7e9a0c4c9b3e6c0c9e3b',
+    example: '657c9a7a3c67ae26c23aa2e6',
     required: true,
   })
   bookID: Types.ObjectId;

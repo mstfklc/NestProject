@@ -6,7 +6,7 @@ export class DeleteAuthorRequestDto {
   @ApiProperty({
     type: 'ObjectId',
     description: 'Author ID',
-    example: '5f8d3d5d3d5d3d5d3d5d3d5d',
+    example: '657c9a7a3c67ae26c23aa2e6',
     required: true,
   })
   authorID: Types.ObjectId;
