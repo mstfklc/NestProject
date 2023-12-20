@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import * as joi from 'joi';
-import { ObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 
 export class AddBookRequestDto {
   @ApiProperty({
@@ -25,7 +25,7 @@ export class AddBookRequestDto {
     example: '5f5d2a7e8d8e4c1a0c7f1b8d',
     required: true,
   })
-  authorID: ObjectId;
+  authorID: Types.ObjectId;
 
   @ApiProperty({
     type: 'ObjectID',
@@ -33,12 +33,12 @@ export class AddBookRequestDto {
     example: ['5f5d2a7e8d8e4c1a0c7f1b8d', '5f5d2a7e8d8e4c1a0c7f1b8d'],
     required: true,
   })
-  categoryID: ObjectId[];
+  categoryID: Types.ObjectId[];
 }
 
 export const AddBookValidation = joi.object({
   bookName: joi.string().required().min(1).max(50),
   price: joi.number().required(),
-  authorID: joi.string().required(),
+  authorID: joi.required(),
   categoryID: joi.required(),
 });
