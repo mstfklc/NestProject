@@ -31,30 +31,26 @@ describe('AuthRegisterService', () => {
     model = module.get<Model<User>>(getModelToken(User.name));
   });
 
-  it('should be defined', () => {
-    expect(authService).toBeDefined();
-  });
-
   describe('register', () => {
+    const req: RegisterRequestDto = {
+      email: 'test@gmail.com',
+      fullName: 'Test User',
+      password: '12345678M',
+    };
+    const invalidInput = {
+      email: 'test@gmail.com',
+      fullName: 'Test User',
+      password: '1234567',
+    };
     it('should register and return status:true ', async () => {
-      const createMockUser: RegisterRequestDto = {
-        email: 'test@gmail.com',
-        fullName: 'Test User',
-        password: '12345678M',
-      };
       jest.spyOn(bcrypt, 'hash').mockResolvedValue(true as never);
       jest.spyOn(model, 'create');
-      const result = await authService.register(createMockUser);
+      const result = await authService.register(req);
 
       expect(bcrypt.hash).toHaveBeenCalled();
       expect(result).toEqual({ status: true });
     });
     it('should throw api_error_invalid_input_data for invalid input', async () => {
-      const invalidInput = {
-        email: 'test@gmail.com',
-        fullName: 'Test User',
-        password: '1234567',
-      };
       jest.spyOn(model, 'create').mockResolvedValueOnce(true as never);
       jest.spyOn(bcrypt, 'hash').mockResolvedValueOnce(true as never);
 
@@ -64,14 +60,9 @@ describe('AuthRegisterService', () => {
       });
     });
     it('should throw api_error_user_already_exist for already exist user', async () => {
-      const existUser = {
-        email: 'test@gmail.com',
-        fullName: 'Test User',
-        password: '1234567M',
-      };
-      jest.spyOn(model, 'findOne').mockResolvedValueOnce(existUser as never);
+      jest.spyOn(model, 'findOne').mockResolvedValueOnce(req as never);
       jest.spyOn(bcrypt, 'hash').mockResolvedValueOnce(true as never);
-      await expect(authService.register(existUser)).rejects.toMatchObject({
+      await expect(authService.register(req)).rejects.toMatchObject({
         response: 'api_error_user_already_exist',
         status: CustomExceptionCode.BAD_REQUEST,
       });

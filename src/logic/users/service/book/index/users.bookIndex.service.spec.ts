@@ -67,6 +67,11 @@ describe('UsersBookIndexService', () => {
     ),
     bookName: 'Updated Book Name',
   };
+  const input = {
+    bookID: mongoose.Types.ObjectId.createFromHexString(
+      '5f8d3d5d3d5d3d5d3d5d3d5d',
+    ),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -123,26 +128,10 @@ describe('UsersBookIndexService', () => {
       );
     });
     it('should throw api_error_book_already_exists for existing book', async () => {
-      const existingBook = {
-        BookName: 'Test Book',
-        Price: 100,
-        UserID: auth.user.id,
-        authorID: mongoose.Types.ObjectId.createFromHexString(
-          '5f8d3d5d3d5d3d5d3d5d3d5d',
-        ),
-        categoryID: [
-          mongoose.Types.ObjectId.createFromHexString(
-            '5f8d3d5d3d5d3d5d3d5d3d5d',
-          ),
-          mongoose.Types.ObjectId.createFromHexString(
-            '5f8d3d5d3d5d3d5d3d5d3d5d',
-          ),
-        ],
-      };
       jest.spyOn(authorModel, 'findOne').mockResolvedValueOnce(true as never);
       jest.spyOn(categoryModel, 'find').mockResolvedValueOnce(true as never);
       jest.spyOn(model, 'create').mockResolvedValueOnce(true as never);
-      jest.spyOn(model, 'findOne').mockResolvedValueOnce(existingBook);
+      jest.spyOn(model, 'findOne').mockResolvedValueOnce(validInput);
       await expect(userService.addBook(validInput, auth)).rejects.toMatchObject(
         {
           response: 'api_error_book_already_exists',
@@ -163,32 +152,18 @@ describe('UsersBookIndexService', () => {
   });
   describe('deleteBook', () => {
     it('should throw api_error_book_not_found', async () => {
-      const invalidInput = {
-        bookID: mongoose.Types.ObjectId.createFromHexString(
-          '5f8d3d5d3d5d3d5d3d5d3d5d',
-        ),
-      };
       jest.spyOn(model, 'findOne').mockResolvedValueOnce(false as never);
-      await expect(
-        userService.deleteBook(invalidInput, auth),
-      ).rejects.toMatchObject({
+      await expect(userService.deleteBook(input, auth)).rejects.toMatchObject({
         response: 'api_error_book_not_found',
         status: CustomExceptionCode.BAD_REQUEST,
       });
     });
     it('should delete the book successfully', async () => {
-      const validInput = {
-        bookID: mongoose.Types.ObjectId.createFromHexString(
-          '5f8d3d5d3d5d3d5d3d5d3d5d',
-        ),
-      };
       jest
         .spyOn(model, 'findOne')
         .mockResolvedValueOnce({ UserID: auth.user.id } as never);
       jest.spyOn(model, 'updateOne').mockResolvedValueOnce(true as never);
-      await expect(
-        userService.deleteBook(validInput, auth),
-      ).resolves.toMatchObject({
+      await expect(userService.deleteBook(input, auth)).resolves.toMatchObject({
         status: true,
       });
     });
@@ -258,22 +233,26 @@ describe('UsersBookIndexService', () => {
     });
 
     it('should throw api_error_update_book_failed for failed update', async () => {
-      const updateFailed = {
-        bookID: mongoose.Types.ObjectId.createFromHexString(
-          '5f8d3d5d3d5d3d5d3d5d3d5d',
-        ),
-      };
       jest.spyOn(model, 'findOne').mockResolvedValueOnce(true as never);
       jest.spyOn(categoryModel, 'find').mockResolvedValueOnce(true as never);
       jest.spyOn(authorModel, 'findOne').mockResolvedValueOnce(true as never);
       jest.spyOn(model, 'updateOne').mockResolvedValueOnce({
         modifiedCount: 0,
       } as never);
-      await expect(
-        userService.updateBook(updateFailed, auth),
-      ).rejects.toMatchObject({
+      await expect(userService.updateBook(input, auth)).rejects.toMatchObject({
         response: 'api_error_update_book_failed',
         status: CustomExceptionCode.BAD_REQUEST,
+      });
+    });
+    it('should update the book successfully', async () => {
+      jest.spyOn(model, 'findOne').mockResolvedValueOnce(true as never);
+      jest.spyOn(categoryModel, 'find').mockResolvedValueOnce(true as never);
+      jest.spyOn(authorModel, 'findOne').mockResolvedValueOnce(true as never);
+      jest.spyOn(model, 'updateOne').mockResolvedValueOnce({
+        modifiedCount: 1,
+      } as never);
+      await expect(userService.updateBook(input, auth)).resolves.toMatchObject({
+        status: true,
       });
     });
   });

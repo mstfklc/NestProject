@@ -51,6 +51,10 @@ describe('AuthLoginService', () => {
     email: 'test@email.com',
     password: '1234567',
   };
+  const userNotFound = {
+    email: 'test123@gmail.com',
+    password: '12345678M',
+  };
   it('should login and return the token', async () => {
     jest
       .spyOn(model, 'findOne')
@@ -71,15 +75,7 @@ describe('AuthLoginService', () => {
     });
   });
   it('should throw api_error_user_not_found for invalid user', async () => {
-    const findOneDto = {
-      email: 'test@gmail.com',
-      password: '12345678M',
-    };
-    const userNotFound = {
-      email: 'test123@gmail.com',
-      password: '12345678M',
-    };
-    model.findOne(findOneDto);
+    model.findOne(loginDto);
     await expect(authService.login(userNotFound)).rejects.toMatchObject({
       response: 'api_error_user_not_found',
       status: CustomExceptionCode.BAD_REQUEST,
