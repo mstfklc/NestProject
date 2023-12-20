@@ -45,7 +45,7 @@ export class UsersBookListService implements UsersBookListInterface {
 
     if (!book) {
       throwApiError(
-        CustomExceptionCode.BAD_REQUEST,
+        CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_book_not_found,
       );
     }
@@ -75,7 +75,7 @@ export class UsersBookListService implements UsersBookListInterface {
       });
       if (!author) {
         throwApiError(
-          CustomExceptionCode.BAD_REQUEST,
+          CustomExceptionCode.API_ERROR,
           ApiErrorEnum.api_error_author_not_found,
         );
       }
@@ -90,7 +90,7 @@ export class UsersBookListService implements UsersBookListInterface {
       });
       if (!category) {
         throwApiError(
-          CustomExceptionCode.BAD_REQUEST,
+          CustomExceptionCode.API_ERROR,
           ApiErrorEnum.api_error_category_not_found,
         );
       }

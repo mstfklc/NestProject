@@ -79,7 +79,7 @@ describe('UsersAuthorService', () => {
         userService.addAuthor(createMockAuthor, auth),
       ).rejects.toMatchObject({
         response: 'api_error_author_already_exists',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
   });
@@ -109,7 +109,7 @@ describe('UsersAuthorService', () => {
       await expect(userService.deleteAuthor(input, auth)).rejects.toMatchObject(
         {
           response: 'api_error_author_not_found',
-          status: CustomExceptionCode.BAD_REQUEST,
+          status: CustomExceptionCode.API_ERROR,
         },
       );
     });
@@ -119,7 +119,7 @@ describe('UsersAuthorService', () => {
       await expect(userService.deleteAuthor(input, auth)).rejects.toMatchObject(
         {
           response: 'api_error_author_has_books',
-          status: CustomExceptionCode.BAD_REQUEST,
+          status: CustomExceptionCode.API_ERROR,
         },
       );
     });

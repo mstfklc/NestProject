@@ -53,7 +53,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (!authorCheck) {
       throwApiError(
-        CustomExceptionCode.BAD_REQUEST,
+        CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_author_not_found,
       );
     }
@@ -66,7 +66,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (!categoryCheck || categoryCheck.length === 0) {
       throwApiError(
-        CustomExceptionCode.BAD_REQUEST,
+        CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_category_not_found,
       );
     }
@@ -77,7 +77,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (bookCheck) {
       throwApiError(
-        CustomExceptionCode.BAD_REQUEST,
+        CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_book_already_exists,
       );
     }
@@ -110,7 +110,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (!bookCheck) {
       throwApiError(
-        CustomExceptionCode.BAD_REQUEST,
+        CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_book_not_found,
       );
     }
@@ -140,7 +140,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     });
     if (!bookCheck) {
       throwApiError(
-        CustomExceptionCode.BAD_REQUEST,
+        CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_book_not_found,
       );
     }
@@ -151,7 +151,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
         IsDeleted: false,
       });
       throwApiError(
-        CustomExceptionCode.BAD_REQUEST,
+        CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_book_name_already_exists,
       );
     }
@@ -164,7 +164,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
       });
       if (!categoryCheck || categoryCheck.length !== req.categoryID.length) {
         throwApiError(
-          CustomExceptionCode.BAD_REQUEST,
+          CustomExceptionCode.API_ERROR,
           ApiErrorEnum.api_error_category_not_found,
         );
       }
@@ -177,7 +177,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
       });
       if (!authorCheck) {
         throwApiError(
-          CustomExceptionCode.BAD_REQUEST,
+          CustomExceptionCode.API_ERROR,
           ApiErrorEnum.api_error_author_not_found,
         );
       }
@@ -192,7 +192,7 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
     const updateResult = await this.bookModel.updateOne(updateOptions);
     if (updateResult.modifiedCount === 0) {
       throwApiError(
-        CustomExceptionCode.BAD_REQUEST,
+        CustomExceptionCode.API_ERROR,
         ApiErrorEnum.api_error_update_book_failed,
       );
     }

@@ -78,7 +78,7 @@ describe('AuthLoginService', () => {
     model.findOne(loginDto);
     await expect(authService.login(userNotFound)).rejects.toMatchObject({
       response: 'api_error_user_not_found',
-      status: CustomExceptionCode.BAD_REQUEST,
+      status: CustomExceptionCode.API_ERROR,
     });
   });
 });

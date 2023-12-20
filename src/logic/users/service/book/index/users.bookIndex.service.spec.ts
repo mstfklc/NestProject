@@ -113,7 +113,7 @@ describe('UsersBookIndexService', () => {
       await expect(userService.addBook(validInput, auth)).rejects.toMatchObject(
         {
           response: 'api_error_author_not_found',
-          status: CustomExceptionCode.BAD_REQUEST,
+          status: CustomExceptionCode.API_ERROR,
         },
       );
     });
@@ -123,7 +123,7 @@ describe('UsersBookIndexService', () => {
       await expect(userService.addBook(validInput, auth)).rejects.toMatchObject(
         {
           response: 'api_error_category_not_found',
-          status: CustomExceptionCode.BAD_REQUEST,
+          status: CustomExceptionCode.API_ERROR,
         },
       );
     });
@@ -135,7 +135,7 @@ describe('UsersBookIndexService', () => {
       await expect(userService.addBook(validInput, auth)).rejects.toMatchObject(
         {
           response: 'api_error_book_already_exists',
-          status: CustomExceptionCode.BAD_REQUEST,
+          status: CustomExceptionCode.API_ERROR,
         },
       );
     });
@@ -155,7 +155,7 @@ describe('UsersBookIndexService', () => {
       jest.spyOn(model, 'findOne').mockResolvedValueOnce(false as never);
       await expect(userService.deleteBook(input, auth)).rejects.toMatchObject({
         response: 'api_error_book_not_found',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
     it('should delete the book successfully', async () => {
@@ -175,7 +175,7 @@ describe('UsersBookIndexService', () => {
         userService.updateBook(updateInvalid, auth),
       ).rejects.toMatchObject({
         response: 'api_error_book_not_found',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
     it('should throw api_error_book_name_already_exists for duplicate book name', async () => {
@@ -184,7 +184,7 @@ describe('UsersBookIndexService', () => {
         userService.updateBook(updateValid, auth),
       ).rejects.toMatchObject({
         response: 'api_error_book_name_already_exists',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
 
@@ -208,7 +208,7 @@ describe('UsersBookIndexService', () => {
         userService.updateBook(categoryInvalid, auth),
       ).rejects.toMatchObject({
         response: 'api_error_category_not_found',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
 
@@ -228,7 +228,7 @@ describe('UsersBookIndexService', () => {
         userService.updateBook(authorInvalid, auth),
       ).rejects.toMatchObject({
         response: 'api_error_author_not_found',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
 
@@ -241,7 +241,7 @@ describe('UsersBookIndexService', () => {
       } as never);
       await expect(userService.updateBook(input, auth)).rejects.toMatchObject({
         response: 'api_error_update_book_failed',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
     it('should update the book successfully', async () => {

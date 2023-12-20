@@ -21,19 +21,19 @@ export class AuthRegisterService implements AuthRegisterInterface {
   ) {}
 
   async register(req: RegisterRequestDto): Promise<SuccessResponseDto> {
-    const user = await this.userModel.findOne({ Email: req.email });
-    if (user) {
-      throwApiError(
-        CustomExceptionCode.BAD_REQUEST,
-        ApiErrorEnum.api_error_user_already_exist,
-      );
-    }
     try {
       await AuthRegisterValidation.validateAsync(req);
     } catch (err) {
       throwApiError(
         CustomExceptionCode.BAD_REQUEST,
         ApiErrorEnum.api_error_invalid_input_data,
+      );
+    }
+    const user = await this.userModel.findOne({ Email: req.email });
+    if (user) {
+      throwApiError(
+        CustomExceptionCode.API_ERROR,
+        ApiErrorEnum.api_error_user_already_exist,
       );
     }
     const hashedPassword = await bcrypt.hash(req.password, 10);

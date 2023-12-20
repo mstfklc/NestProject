@@ -62,7 +62,7 @@ describe('UserCategoryService', () => {
       jest.spyOn(categoryModel, 'findOne').mockResolvedValueOnce(req);
       await expect(usersService.addCategory(req, auth)).rejects.toMatchObject({
         response: 'api_error_category_already_exists',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
     it('should return status true for valid input', async () => {
@@ -111,7 +111,7 @@ describe('UserCategoryService', () => {
         usersService.deleteCategory(req, auth),
       ).rejects.toMatchObject({
         response: 'api_error_category_not_found',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
     it('should throw api_error_category_has_book for category has books', async () => {
@@ -121,7 +121,7 @@ describe('UserCategoryService', () => {
         usersService.deleteCategory(req, auth),
       ).rejects.toMatchObject({
         response: 'api_error_category_has_book',
-        status: CustomExceptionCode.BAD_REQUEST,
+        status: CustomExceptionCode.API_ERROR,
       });
     });
     it('should delete category', async () => {
