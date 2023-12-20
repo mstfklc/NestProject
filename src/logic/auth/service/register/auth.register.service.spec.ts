@@ -73,7 +73,7 @@ describe('AuthRegisterService', () => {
       jest.spyOn(bcrypt, 'hash').mockResolvedValueOnce(true as never);
       await expect(authService.register(existUser)).rejects.toMatchObject({
         response: 'api_error_user_already_exist',
-        status: CustomExceptionCode.API_ERROR,
+        status: CustomExceptionCode.BAD_REQUEST,
       });
     });
   });

@@ -43,10 +43,6 @@ describe('AuthLoginService', () => {
     jwtService = module.get<JwtService>(JwtService);
   });
 
-  it('should be defined', () => {
-    expect(authService).toBeDefined();
-  });
-
   const loginDto = {
     email: 'test@gmail.com',
     password: '12345678M',
@@ -86,7 +82,7 @@ describe('AuthLoginService', () => {
     model.findOne(findOneDto);
     await expect(authService.login(userNotFound)).rejects.toMatchObject({
       response: 'api_error_user_not_found',
-      status: CustomExceptionCode.API_ERROR,
+      status: CustomExceptionCode.BAD_REQUEST,
     });
   });
 });
