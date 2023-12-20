@@ -145,15 +145,18 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
       );
     }
     if (req.bookName && req.bookName !== bookCheck.BookName) {
-      await this.bookModel.findOne({
+      const existingBookWithSameName = await this.bookModel.findOne({
         BookName: req.bookName,
         UserID: auth.user.id,
         IsDeleted: false,
       });
-      throwApiError(
-        CustomExceptionCode.API_ERROR,
-        ApiErrorEnum.api_error_book_name_already_exists,
-      );
+
+      if (existingBookWithSameName) {
+        throwApiError(
+          CustomExceptionCode.API_ERROR,
+          ApiErrorEnum.api_error_book_already_exists,
+        );
+      }
     }
     if (req.categoryID && req.categoryID.length > 0) {
       const mapCategory = req.categoryID.map((item) => item.toString());
@@ -183,13 +186,15 @@ export class UsersBookIndexService implements UsersBookIndexInterface {
       }
     }
     const updateOptions = {
-      _id: req.bookID,
-      BookName: req.bookName ?? bookCheck.BookName,
-      Price: req.price ?? bookCheck.Price,
-      AuthorID: req.authorID ?? bookCheck.AuthorID,
-      CategoryID: req.categoryID ?? bookCheck.CategoryID,
+      BookName: req.bookName,
+      Price: req.price,
+      AuthorID: req.authorID,
+      CategoryID: req.categoryID,
     };
-    const updateResult = await this.bookModel.updateOne(updateOptions);
+    const updateResult = await this.bookModel.updateOne(
+      { _id: req.bookID },
+      updateOptions,
+    );
     if (updateResult.modifiedCount === 0) {
       throwApiError(
         CustomExceptionCode.API_ERROR,
